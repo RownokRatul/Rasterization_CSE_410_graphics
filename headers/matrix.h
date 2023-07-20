@@ -70,7 +70,6 @@ matrix matrixMultiply(matrix x, matrix y) {
 }
 
 matrix matrixMultiply(matrix x, double c) {
-    // cout << "In multiply: "<< c <<"\n" << endl;
     matrix res(x.row_dim, x.col_dim);
     for(int i=0;i<x.row_dim;i++) {
         for(int j=0;j<x.col_dim;j++) {
@@ -127,27 +126,6 @@ matrix addMatrix(matrix a, matrix b) {
 
 double dot_product(matrix a, matrix b) {
     return a.m[0][0]*b.m[0][0] + a.m[1][0]*b.m[1][0] + a.m[2][0]*b.m[2][0];
-}
-
-matrix RodriguesFormula(matrix a, matrix x, double theta) {
-    // cout << "Rodrigues!\n";
-    // a.print();
-    // x.print();
-    cout << theta << endl;
-    matrix norm_a = normalize(a);
-    // norm_a.print();
-    matrix p1 = matrixMultiply(x, cos(theta));
-    // p1.print();
-    matrix p2 = matrixMultiply(norm_a, (1-cos(theta))*dot_product(norm_a, x));
-    // cout << "p2:\n";
-    // p2.print();
-    // cross_product(norm_a, x).print();
-    // cout << "going in!\n"; 
-    matrix p3 = matrixMultiply(cross_product(norm_a, x), sin(theta));
-    // cout << "p3:\n";
-    // p3.print();
-    matrix final = addMatrix(p3, addMatrix(p1, p2));
-    return final;
 }
 
 
