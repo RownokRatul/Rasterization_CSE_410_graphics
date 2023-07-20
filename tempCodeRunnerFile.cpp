@@ -1,0 +1,15 @@
+matrix col2 = RodriguesFormula(a, j, angle);
+    // matrix col3 = RodriguesFormula(a, k, angle);
+    // matrix rot(4, 4);
+    // rot.m[0][0] = col1.m[0][0];
+    // rot.m[1][0] = col1.m[1][0];
+    // rot.m[2][0] = col1.m[2][0];
+    // rot.m[0][1] = col2.m[0][0];
+    // rot.m[1][1] = col2.m[1][0];
+    // rot.m[2][1] = col2.m[2][0];
+    // rot.m[0][2] = col3.m[0][0];
+    // rot.m[1][2] = col3.m[1][0];
+    // rot.m[2][2] = col3.m[2][0];
+    // rot.m[3][3] = 1;
+    // rot.print();
+    // return rot;
