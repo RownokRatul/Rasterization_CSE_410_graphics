@@ -2,16 +2,13 @@
 #include <vector>
 #include <stack>
 #include <cmath>
-#include "matrix.h"
-#include "modelTransformation.cpp"
-#include "headers/camera.h"
-#include "headers/triangle.h"
+#include "headers/config.h"
+#include "cmdParser.cpp"
 
 using namespace std;
 
 #define degToRadian(x) x*M_PI/180.0
 
-Camera camera;
 
 void test() {
     vector<double> t = {1, 2, 3};
@@ -20,7 +17,8 @@ void test() {
     rotationMatrix(degToRadian(90.0), 0.0, 1.0, 0.0);
 }
 
-void parseCommand() {
+void parseCommand() { 
+    model = loadIdentityMatrix();
     freopen("scene.txt", "r", stdin);
     cin >> camera.eyex >> camera.eyey >> camera.eyez;
     cin >> camera.lookx >> camera.looky >> camera.lookz;
@@ -31,31 +29,33 @@ void parseCommand() {
     while(true) {
         cin >> cmd;
         if(cmd == "triangle") {
-
+            triangle();
         }
         else if(cmd == "translate") {
-
+            translate();
         }
         else if(cmd == "scale") {
-
+            scale();
         }
         else if(cmd == "rotate") {
-
+            rotate();
         }
         else if(cmd == "push") {
-
+            push();
         }
         else if(cmd == "pop") {
-
+            pop();
         }
         else if(cmd == "end") {
-            
+            exit(0);
+        }
+        else {
+            exit(1);
         }
     }
 }
 
 int main() {
     parseCommand();
-
     return 0;
 }

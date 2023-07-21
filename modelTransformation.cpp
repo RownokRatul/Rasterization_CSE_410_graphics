@@ -1,4 +1,4 @@
-#include "matrix.h"
+#include "headers/matrix.h"
 using namespace std;
 
 
@@ -13,11 +13,11 @@ matrix RodriguesFormula(matrix a, matrix x, double theta) {
 
 matrix rotationMatrix(double angle, double ax, double ay, double az) {
     matrix a ({ax, ay, az, 1});
-    a.print();
+    // a.print();
     matrix i({1, 0, 0, 1});
     matrix j({0, 1, 0, 1});
     matrix k({0, 0, 1, 1});
-    i.print();
+    // i.print();
     matrix col1 = RodriguesFormula(a, i, angle);
     matrix col2 = RodriguesFormula(a, j, angle);
     matrix col3 = RodriguesFormula(a, k, angle);
@@ -32,7 +32,7 @@ matrix rotationMatrix(double angle, double ax, double ay, double az) {
     rot.m[1][2] = col3.m[1][0];
     rot.m[2][2] = col3.m[2][0];
     rot.m[3][3] = 1;
-    rot.print();
+    // rot.print();
     return rot;
 }
 
@@ -55,4 +55,12 @@ matrix scaleMatrix(double sx, double sy, double sz) {
     t.m[2][2] = sz;
     t.m[3][3] = 1;
     return t;
+}
+
+matrix loadIdentityMatrix() {
+    matrix id(4, 4);
+    for(int i=0;i<4;i++) {
+        id.m[i][i] = 1;
+    }
+    return id;
 }

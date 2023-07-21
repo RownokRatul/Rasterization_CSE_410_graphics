@@ -17,6 +17,11 @@ class matrix {
         int col_dim;
 
 
+        matrix () {
+            row_dim = 0;
+            col_dim = 0;
+        }
+
         matrix(int dim) {
             row_dim = col_dim = dim;
             vector<vector<double> > temp(dim, vector<double>(dim, 0));
@@ -52,6 +57,7 @@ class matrix {
         }
 
 };
+
 
 matrix matrixMultiply(matrix x, matrix y) {
     if(x.col_dim != y.row_dim) {
