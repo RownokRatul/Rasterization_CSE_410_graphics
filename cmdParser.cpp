@@ -6,7 +6,7 @@ using namespace std;
 void translate() {
     double tx, ty, tz;
     cin >> tx >> ty >> tz;
-    matrix T = transformationMatrix(tx, ty, tz);
+    matrix T = translateMatrix(tx, ty, tz);
     model = matrixMultiply(model, T);
 }
 

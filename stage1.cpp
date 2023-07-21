@@ -7,14 +7,13 @@
 
 using namespace std;
 
-#define degToRadian(x) x*M_PI/180.0
-
 
 void test() {
     vector<double> t = {1, 2, 3};
-    matrix c({1, 2, 3});
-    c.print();
-    rotationMatrix(degToRadian(90.0), 0.0, 1.0, 0.0);
+    matrix c({1, 0, 0, 1});
+    // c.print();
+    matrix rot = rotationMatrix(degToRadian(90.0), 0.0, 0.0, 1.0);
+    matrixMultiply(rot, c).print();
 }
 
 void parseCommand() { 
@@ -57,5 +56,6 @@ void parseCommand() {
 
 int main() {
     parseCommand();
+    // test();
     return 0;
 }
