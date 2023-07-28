@@ -48,3 +48,25 @@ void pop() {
     model = st.top();
     st.pop();
 }
+
+void transformScene(matrix &t) {
+    for(int i=0;i<triangles.size();i++) {
+        triangles[i] = triangles[i].transform(t);
+    }
+    for(int i=0;i<triangles.size();i++) {
+        triangles[i].print();
+    }
+}
+
+void viewTransform() {
+    freopen("stage2.txt", "w", stdout);
+    matrix v = viewTransformationMatrix(camera);
+    model = matrixMultiply(model, v);
+    transformScene(model);
+}
+
+void projectTransform() {
+    freopen("stage3.txt", "w", stdout);
+    matrix proj = projectionMatrix(camera);
+    transformScene(proj);
+}

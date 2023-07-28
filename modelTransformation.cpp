@@ -67,19 +67,44 @@ matrix loadIdentityMatrix() {
     return id;
 }
 
-matrix viewTransformMatrix(Camera &cam) {
+matrix viewTransformationMatrix(Camera &cam) {
+    matrix l({cam.lookx-cam.eyex, cam.looky-cam.eyey, cam.lookz-cam.eyez, 1});
+    matrix up({cam.upx, cam.upy, cam.upz, 1});
+    l = normalize(l);
+    matrix r = normalize(cross_product(l, up));
+    matrix u = cross_product(r, l);
 
+    matrix T(4, 4);
+    for(int i=0;i<4;i++) {
+        T.m[i][i] = 1;
+    }
+    T.m[0][3] = -cam.eyex;
+    T.m[1][3] = -cam.eyey;
+    T.m[2][3] = -cam.eyez;
+
+    matrix R(4, 4);
+    R.m[0][0] = r.m[0][0];
+    R.m[0][1] = r.m[1][0];
+    R.m[0][2] = r.m[2][0];
+    R.m[1][0] = u.m[0][0];
+    R.m[1][1] = u.m[1][0];
+    R.m[1][2] = u.m[2][0];
+    R.m[2][0] = -l.m[0][0];
+    R.m[2][1] = -l.m[1][0];
+    R.m[2][2] = -l.m[2][0];
+    R.m[3][3] = 1;
+    return matrixMultiply(R, T);
 }
 
 matrix projectionMatrix(Camera &cam) {
     double fovX = cam.aspectRatio * cam.fovY;
-    double t = cam.nearPlane * tan(cam.fovY/2);
-    double r = cam.nearPlane * tan(fovX/2);
+    double t = cam.nearPlane * tan(degToRadian(cam.fovY/2));
+    double r = cam.nearPlane * tan(degToRadian(fovX/2));
     matrix proj(4, 4);
     proj.m[0][0] = cam.nearPlane/r;
     proj.m[1][1] = cam.nearPlane/t;
     proj.m[2][2] = -(cam.farPlane+cam.nearPlane)/(cam.farPlane-cam.nearPlane);
-    proj.m[2][3] = -1;
-    proj.m[3][2] = (-2*cam.farPlane*cam.nearPlane)/(cam.farPlane-cam.nearPlane);
+    proj.m[2][3] = (-2.0*cam.farPlane*cam.nearPlane)/(cam.farPlane-cam.nearPlane);
+    proj.m[3][2] = -1.0;
     return proj;
 }

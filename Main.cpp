@@ -18,11 +18,12 @@ void test() {
 
 void parseCommand() { 
     model = loadIdentityMatrix();
-    freopen("scene.txt", "r", stdin);
+    freopen("./TestCases/1/scene.txt", "r", stdin);
+    freopen("stage1.txt", "w", stdout);
     cin >> camera.eyex >> camera.eyey >> camera.eyez;
     cin >> camera.lookx >> camera.looky >> camera.lookz;
     cin >> camera.upx >> camera.upy >> camera.upz;
-    cin >> camera.fovY >> camera.aspectRatio >> camera.nearPlane >> camera. farPlane;
+    cin >> camera.fovY >> camera.aspectRatio >> camera.nearPlane >> camera.farPlane;
 
     string cmd;
     while(true) {
@@ -46,6 +47,10 @@ void parseCommand() {
             pop();
         }
         else if(cmd == "end") {
+            // cout << "----------------------\n";
+            viewTransform();
+            // cout << "----------------------\n";
+            projectTransform();
             exit(0);
         }
         else {
