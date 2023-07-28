@@ -49,7 +49,8 @@ class matrix {
             cout << "-------------\n";
             for(int i=0;i<row_dim;i++) {
                 for(int j=0;j<col_dim;j++) {
-                    cout << m[i][j] << " ";
+                    // cout << m[i][j] << " ";
+                    printf("%.7lf ", m[i][j]);
                 }
                 cout << "\n";
             } 

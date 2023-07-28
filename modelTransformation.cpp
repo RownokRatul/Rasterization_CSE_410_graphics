@@ -7,23 +7,33 @@ using namespace std;
 matrix RodriguesFormula(matrix x, matrix a, double theta) {
     // matrix norm_a = normalize(a);
     matrix p1 = matrixMultiply(x, cos(theta));
+    // p1.print();
     matrix p2 = matrixMultiply(a, (1-cos(theta))*dot_product(a, x));
+    // p2.print();
     matrix p3 = matrixMultiply(cross_product(a, x), sin(theta));
+    // p3.print();
     matrix final = addMatrix(p3, addMatrix(p1, p2));
-    final = homogenousNormalize(final);
+    // final.print();
+    // final = homogenousNormalize(final);
     return final;
 }
 
 matrix rotationMatrix(double angle, double ax, double ay, double az) {
+    // cout << angle << " " << ax << " " << ay << " " << az << endl;
     double angle_radian = degToRadian(angle);
+    // cout << angle_radian << endl;
     matrix a ({ax, ay, az, 1});
     a = normalize(a);
+    // a.print();
     matrix i({1, 0, 0, 1});
     matrix j({0, 1, 0, 1});
     matrix k({0, 0, 1, 1});
     matrix col1 = RodriguesFormula(i, a, angle_radian);
+    // col1.print();
     matrix col2 = RodriguesFormula(j, a, angle_radian);
+    // col2.print();
     matrix col3 = RodriguesFormula(k, a, angle_radian);
+    // col3.print();
     matrix rot(4, 4);
     rot.m[0][0] = col1.m[0][0];
     rot.m[1][0] = col1.m[1][0];
@@ -35,6 +45,7 @@ matrix rotationMatrix(double angle, double ax, double ay, double az) {
     rot.m[1][2] = col3.m[1][0];
     rot.m[2][2] = col3.m[2][0];
     rot.m[3][3] = 1;
+    // rot.print();
     return rot;
 }
 
