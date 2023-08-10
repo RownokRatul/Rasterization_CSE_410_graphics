@@ -12,13 +12,14 @@ void test() {
     vector<double> t = {1, 2, 3};
     matrix c({1, 0, 0, 1});
     // c.print();
-    matrix rot = rotationMatrix(degToRadian(90.0), 0.0, 0.0, 1.0);
+    matrix rot = rotationMatrix(-90.0, 1.0, 0.0, 0.0);
+    rot.print();
     matrixMultiply(rot, c).print();
 }
 
 void parseCommand() { 
     model = loadIdentityMatrix();
-    freopen("./TestCases/1/scene.txt", "r", stdin);
+    freopen("scene.txt", "r", stdin);
     freopen("stage1.txt", "w", stdout);
     cin >> camera.eyex >> camera.eyey >> camera.eyez;
     cin >> camera.lookx >> camera.looky >> camera.lookz;
