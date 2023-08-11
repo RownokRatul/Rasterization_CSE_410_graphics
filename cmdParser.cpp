@@ -1,6 +1,6 @@
 #include <iostream>
 #include "headers/config.h"
-#include "modelTransformation.cpp"
+#include "headers/modelTransformation.cpp"
 using namespace std;
 
 void translate() {

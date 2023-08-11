@@ -16,6 +16,17 @@ class Triangle {
         double p2x, p2y, p2z;
         double p3x, p3y, p3z;
 
+        Triangle(vector<double> v) {
+            p1x = v[0];
+            p1y = v[1];
+            p1z = v[2];
+            p2x = v[3];
+            p2y = v[4];
+            p2z = v[5];
+            p3x = v[6];
+            p3y = v[7];
+            p3z = v[8];
+        }
 
         Triangle(matrix p1, matrix p2, matrix p3) {
             p1x = p1.m[0][0];

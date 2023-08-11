@@ -1,4 +1,4 @@
-#include "headers/matrix.h"
+#include "matrix.h"
 using namespace std;
 
 #define degToRadian(x) x*M_PI/180.0
