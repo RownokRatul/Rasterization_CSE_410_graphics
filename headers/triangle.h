@@ -5,6 +5,8 @@
 #include <iomanip>
 #include <cstdio>
 #include "matrix.h"
+#include "plane.h"
+#include "rgb.h"
 
 using namespace std;
 
@@ -16,6 +18,23 @@ class Triangle {
         double p2x, p2y, p2z;
         double p3x, p3y, p3z;
 
+        rgb color;
+
+        Triangle(double ax, double ay, double az,
+                double bx, double by, double bz,
+                double cx, double cy, double cz) {
+            p1x = ax;
+            p1y = ay;
+            p1z = az;
+            p2x = bx;
+            p2y = by;
+            p2z = bz;
+            p3x = cx;
+            p3y = cy;
+            p3z = cz;
+            color = rgb(255, 255, 255);
+        }
+
         Triangle(vector<double> v) {
             p1x = v[0];
             p1y = v[1];
@@ -26,6 +45,7 @@ class Triangle {
             p3x = v[6];
             p3y = v[7];
             p3z = v[8];
+            color = rgb(255, 255, 255);
         }
 
         Triangle(matrix p1, matrix p2, matrix p3) {
@@ -40,6 +60,8 @@ class Triangle {
             p3x = p3.m[0][0];
             p3y = p3.m[1][0];
             p3z = p3.m[2][0];
+
+            color = rgb(255, 255, 255);
         }
 
         void print() {
@@ -56,6 +78,18 @@ class Triangle {
             matrix p2_prime = homogenousNormalize(matrixMultiply(model, p2));
             matrix p3_prime = homogenousNormalize(matrixMultiply(model, p3));
             return Triangle(p1_prime, p2_prime, p3_prime);
+        }
+
+        Plane get_equation() {
+            matrix r({p1x-p2x, p1y-p2y, p1z-p2z, 1});
+            matrix s({p1x-p3x, p1y-p3y, p1z-p3z, 1});
+            matrix n = cross_product(r, s);
+            n = normalize(n);
+            double a = n.m[0][0];
+            double b = n.m[1][0];
+            double c = n.m[2][0];
+            Plane p(a, b, c, a*p1x+b*p1y+c*p1z);
+            return p;
         }
 
 };
